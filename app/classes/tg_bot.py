@@ -15,9 +15,19 @@ class TG_bot():
         url = f"https://api.telegram.org/bot{self.token}/sendMessage"
         params = {'chat_id': self.chat_id, 'text': message}
         try:
-            requests.post(url, params=params)
+            response = requests.post(url, params=params)
+            return response.json()
         except Exception as exc:
             print(f"Can't send message: {exc}")
+            return False
+
+    def delete_message(self, message_id):
+        url = f"https://api.telegram.org/bot{self.token}/deleteMessage"
+        params = {'chat_id': self.chat_id, 'message_id': message_id}
+        try:
+            requests.post(url, params=params)
+        except Exception as exc:
+            print(f"Can't delete message: {exc}")
 
     def get_updates(self, offset=None):
         url = f"https://api.telegram.org/bot{self.token}/getUpdates"

@@ -13,7 +13,18 @@ class Mediator():
 
     def handle_request(self, request):
         if request == "balance":
+            collecting_message_response = self.bot.send_message(
+                "Collecting balances info...")
+            if collecting_message_response:
+                collecting_message_id = collecting_message_response['result']['message_id']
+            else:
+                collecting_message_id = False
+
             balance_notes = self.balance.get_all_balances()
+
+            if collecting_message_id:
+                self.bot.delete_message(collecting_message_id)
+
             for note in balance_notes:
                 if note['status'] != 'ok':
                     self.bot.send_message(
