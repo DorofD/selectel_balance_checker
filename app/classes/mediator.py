@@ -19,7 +19,7 @@ class Mediator():
                     self.bot.send_message(
                         f"Can't get balance info for account: {note['account_id']}")
                     continue
-                message = f"\nAccount: {note['account_id']} \nBalance: {note['balance']} ₽ \nRemaining: ~{note['hours_remaining'] / 24} days (~{note['hours_remaining']} hours)"
+                message = f"\nAccount: {note['account_id']} \nBalance: {note['balance']} ₽ \nRemaining: ~{int(note['hours_remaining'] / 24)} days (~{note['hours_remaining']} hours)"
                 self.bot.send_message(message)
 
     def check_balance_validity(self):
