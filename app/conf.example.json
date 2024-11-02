@@ -1,0 +1,11 @@
+{
+    "selectel_accounts": [
+        {"account_id": 123456, "user": "balance_user", "password": "password"},
+        {"account_id": 654321, "user": "balance_user", "password": "password"}
+    ],
+    "tg_bot_token": "1234567890:01234ABCDEFGHIJ_abcdefghijklmnopqrstuvw",
+    "alert_tg_chat_id": "-1234567890000",
+    "critical_balance": 10000,
+    "critical_hours_remaining": 24,
+    "check_interval_hours": 4
+}
