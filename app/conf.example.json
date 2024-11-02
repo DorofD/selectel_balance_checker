@@ -7,5 +7,6 @@
     "alert_tg_chat_id": "-1234567890000",
     "critical_balance": 10000,
     "critical_hours_remaining": 24,
-    "check_interval_hours": 4
+    "check_interval_hours": 4,
+    "success_check_alerting": false
 }
