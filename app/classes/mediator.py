@@ -12,26 +12,31 @@ class Mediator():
         self.success_check_alerting = config['success_check_alerting']
 
     def handle_request(self, request):
+        if request == "status":
+            self.bot.send_message("Ready to handle requests")
         if request == "balance":
-            collecting_message_response = self.bot.send_message(
-                "Collecting balances info...")
-            if collecting_message_response:
-                collecting_message_id = collecting_message_response['result']['message_id']
-            else:
-                collecting_message_id = False
+            self.handle_balance()
 
-            balance_notes = self.balance.get_all_balances()
+    def handle_balance(self):
+        collecting_message_response = self.bot.send_message(
+            "Collecting balances info...")
+        if collecting_message_response:
+            collecting_message_id = collecting_message_response['result']['message_id']
+        else:
+            collecting_message_id = False
 
-            if collecting_message_id:
-                self.bot.delete_message(collecting_message_id)
+        balance_notes = self.balance.get_all_balances()
 
-            for note in balance_notes:
-                if note['status'] != 'ok':
-                    self.bot.send_message(
-                        f"Can't get balance info for account: {note['account_id']}")
-                    continue
-                message = f"\nAccount: {note['account_id']} \nBalance: {note['balance']} ₽ \nRemaining: ~{int(note['hours_remaining'] / 24)} days (~{note['hours_remaining']} hours)"
-                self.bot.send_message(message)
+        if collecting_message_id:
+            self.bot.delete_message(collecting_message_id)
+
+        for note in balance_notes:
+            if note['status'] != 'ok':
+                self.bot.send_message(
+                    f"Can't get balance info for account: {note['account_id']}")
+                continue
+            message = f"\nAccount: {note['account_id']} \nBalance: {note['balance']} ₽ \nRemaining: ~{int(note['hours_remaining'] / 24)} days (~{note['hours_remaining']} hours)"
+            self.bot.send_message(message)
 
     def check_balance_validity(self):
         balance_notes = self.balance.get_all_balances()
