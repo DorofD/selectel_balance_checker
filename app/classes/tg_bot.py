@@ -49,9 +49,9 @@ class TG_bot():
         params = {'timeout': 100, 'offset': offset}
         try:
             response = requests.get(url, params=params)
+            return response.json()
         except Exception as exc:
             print(f"Can't get updates: {exc}")
-        return response.json()
 
     def run_bot(self):
         last_update_id = None
