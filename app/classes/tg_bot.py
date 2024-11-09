@@ -52,10 +52,10 @@ class TG_bot():
             return response.json()
         except Exception as exc:
             print(f"Can't get updates: {exc}")
+            return {"error": f"Can't get updates: {exc}"}
 
     def run_bot(self):
         last_update_id = None
-
         while True:
             updates = self.get_updates(last_update_id)
             if "result" in updates:
