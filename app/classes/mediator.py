@@ -16,6 +16,9 @@ class Mediator():
             self.bot.send_message("Ready to handle requests")
         if request == "balance":
             self.handle_balance()
+        if request == "settings":
+            self.bot.send_message(
+                f"Current settings: \n\nCritical balance: {self.critical_balance} ₽ \nCritical hours: {self.critical_hours_remaining} \nSuccess check alerting: {self.success_check_alerting}")
 
     def handle_balance(self):
         collecting_message_response = self.bot.send_message(
@@ -46,7 +49,7 @@ class Mediator():
                     f"Can't get balance info for account: {note['account_id']}")
                 continue
             if note['balance'] < self.critical_balance or note['hours_remaining'] < self.critical_hours_remaining:
-                message = f"❗❗❗Balance parameter is less than the critical value \n({self.critical_balance} ₽ / {self.critical_hours_remaining} hours): \n\nAccount: {note['account_id']} \nBalance: {note['balance']} ₽ \nHours remaining: ~{note['hours_remaining']} hours"
+                message = f"❗❗❗Balance parameter is less than the critical value \n({self.critical_balance} ₽ / {self.critical_hours_remaining} hours): \n\nAccount: {note['account_id']} \nBalance: {note['balance']} ₽ \nRemaining: ~{int(note['hours_remaining'] / 24)} days (~{note['hours_remaining']} hours)"
                 self.bot.send_message(message)
             else:
                 if self.success_check_alerting:

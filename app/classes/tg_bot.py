@@ -13,7 +13,8 @@ class TG_bot():
 
         commands = [
             {'command': 'status', 'description': 'Check listener status'},
-            {'command': 'balance', 'description': 'Get Selectel accounts balances'}
+            {'command': 'balance', 'description': 'Get Selectel accounts balances'},
+            {'command': 'settings', 'description': 'Get service settings'}
         ]
         url = f"https://api.telegram.org/bot{self.token}/setMyCommands"
         data = {
@@ -67,4 +68,6 @@ class TG_bot():
                             self.mediator.handle_request('balance')
                         if 'status' in message_text.lower():
                             self.mediator.handle_request('status')
+                        if 'settings' in message_text.lower():
+                            self.mediator.handle_request('settings')
             time.sleep(1)
