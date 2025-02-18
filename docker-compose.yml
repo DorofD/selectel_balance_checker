@@ -1,0 +1,9 @@
+services:
+    balance-checker:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: balance-checker
+        volumes:
+            - ./app/conf.json:/app/conf.json
+        restart: always
